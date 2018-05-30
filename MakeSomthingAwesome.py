@@ -67,7 +67,7 @@ def forceCalc(velocity,massProjectile,height,time):
 print("This will calculate the maxium range, exit velocity, and flight time of a trebuchet.")
 
 #inputs
-armLength=float(input("What is the distance bettwen the pivot and the attachment of the projectile (in meters): "))
+armLength=float(input("What is the distance between the pivot and the attachment of the projectile (in meters): "))
 massProjectile=float(input("What is the mass of the projectile (in kilograms): "))
 massCounter=float(input("What is the mass of the counterweight (in kilograms): "))
 height=float(input("What is the height of the pivot point (in meters):"))
@@ -83,9 +83,9 @@ impact=forceCalc(velocity,massProjectile,height,time)
 
 
 #outputs
-print("The described trebuchet had a maximum theoretical range of ",distance)
-print("The exit velocity of the projectile was",velocity)
-print("The flight time of the projectile was",time)
-print("The impact force of the projectile was",impact)
+print("The described trebuchet had a maximum theoretical range of ",distance,"meters.")
+print("The exit velocity of the projectile was",velocity,"meters per second.")
+print("The flight time of the projectile was",time,"seconds.")
+print("The impact force of the projectile was",impact,"Newtons")
 
 
