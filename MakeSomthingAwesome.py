@@ -1,43 +1,62 @@
 #importing modules
 import math as m
 
+#definine globals
+G=9.82
+pi=3.14159265359
+
 #define functions
-#calculates maximum theoretical range of the trebuchet
-def distanceCalc(height,velocity):
+def distanceCalc(height,velocityV,velocityH):
     
-    G=9.82
+    global G
     distance=0
     
     while height>9.82:
-        height-=G
-        distance+=velocity
+        velocityV-=G
+        height+=velocityV
+        distance+=velocityH
     
-    velocity=velocity/10
-    G=G/10
+    velocityV=velocityV/10
+    velocityH=velocityH/10
+    g=9.82/10
     
     while height>0:
-        height-=G
-        distance+=velocity
+        velocityV-=G
+        height+=velocityV
+        distance+=velocityH
     
     return(distance)
 
 
-#calculates the exit velocity of the trebuchet
 def velocityCalc(massCounter,massProjectile,armLegnth,height):
     
-    G=9.82
+    global G
+    global pi
+    velocity=0
     
     force=(massCounter*G)-(massProjectile*G)
     accelerate=force/massProjectile
-    distance=m.sqrt(((armLength**2)*2))
-    velocity=(accelerate*distance)/2
+    distance=(2*armLegnth)*pi
+    for i in range(0,int(distance*10)):
+        velocity+=(accelerate/10)
     
     return(velocity)
 
-#calculates the impact force of the trebuchet.
-def forceCalc(velocity,massProjectile,height,time):
+def velocityVCalc(velocity,releaseAngle):
     
-    G=9.82
+    velocityV=velocity*(releaseAngle/90)
+    
+    return(velocityV)
+    
+def velocityHCalc(velocity,velocityV):
+    
+    velocityH=velocity-velocityV
+    
+    return(velocityH)
+
+def forceCalc(velocity,massProjectile,height,time):
+
+    global G
     
     force=(((velocity)+(height*G))*massProjectile)
     
@@ -52,10 +71,13 @@ armLength=float(input("What is the distance bettwen the pivot and the attachment
 massProjectile=float(input("What is the mass of the projectile (in kilograms): "))
 massCounter=float(input("What is the mass of the counterweight (in kilograms): "))
 height=float(input("What is the height of the pivot point (in meters):"))
+releaseAngle=float(input("What is the release angle of the projecttile (projectile velocity elevaion from ground, 37.5 is ideal, above 45 is not recomended):"))
 
 #calculating
 velocity=velocityCalc(massCounter,massProjectile,armLength,height)
-distance=distanceCalc(height,velocity)
+velocityV=velocityVCalc(velocity,releaseAngle)
+velocityH=velocityHCalc(velocity,velocityV)
+distance=distanceCalc(height,velocityV,velocityH)
 time=distance/velocity
 impact=forceCalc(velocity,massProjectile,height,time)
 
